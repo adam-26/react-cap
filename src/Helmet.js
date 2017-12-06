@@ -7,9 +7,9 @@ import {
     handleClientStateChange,
     reducePropsToState,
     warn
-} from "../src/HelmetUtils.js";
-import {mapStateOnServer} from "../src/HelmetServerUtils";
-import {TAG_NAMES, VALID_TAG_NAMES} from "../src/HelmetConstants.js";
+} from "./HelmetUtils.js";
+import {mapStateOnServer} from "./HelmetServerUtils";
+import {TAG_NAMES, VALID_TAG_NAMES} from "./HelmetConstants.js";
 
 const Helmet = Component =>
     class HelmetWrapper extends React.Component {
