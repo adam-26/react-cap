@@ -2,7 +2,7 @@ import React from "react";
 import objectAssign from "object-assign";
 import {
     ATTRIBUTE_NAMES,
-    HELMET_ATTRIBUTE,
+    HELMET_IGNORE_ATTRIBUTE,
     HELMET_PROPS,
     HTML_TAG_MAP,
     REACT_TAG_MAP,
@@ -267,19 +267,21 @@ const rafPolyfill = (() => {
 
 const cafPolyfill = (id: string | number) => clearTimeout(id);
 
-const requestAnimationFrame = typeof window !== "undefined"
-    ? window.requestAnimationFrame ||
+const requestAnimationFrame =
+    typeof window !== "undefined"
+        ? window.requestAnimationFrame ||
           window.webkitRequestAnimationFrame ||
           window.mozRequestAnimationFrame ||
           rafPolyfill
-    : global.requestAnimationFrame || rafPolyfill;
+        : global.requestAnimationFrame || rafPolyfill;
 
-const cancelAnimationFrame = typeof window !== "undefined"
-    ? window.cancelAnimationFrame ||
+const cancelAnimationFrame =
+    typeof window !== "undefined"
+        ? window.cancelAnimationFrame ||
           window.webkitCancelAnimationFrame ||
           window.mozCancelAnimationFrame ||
           cafPolyfill
-    : global.cancelAnimationFrame || cafPolyfill;
+        : global.cancelAnimationFrame || cafPolyfill;
 
 const warn = msg => {
     return console && typeof console.warn === "function" && console.warn(msg);
@@ -372,10 +374,24 @@ const updateAttributes = (tagName, attributes) => {
         return;
     }
 
-    const helmetAttributeString = elementTag.getAttribute(HELMET_ATTRIBUTE);
-    const helmetAttributes = helmetAttributeString
-        ? helmetAttributeString.split(",")
+    // Determine if any attributes need to be ignored
+    const helmetIgnoreAttributeString = elementTag.getAttribute(
+        HELMET_IGNORE_ATTRIBUTE
+    );
+    const helmetIgnoreAttributes = helmetIgnoreAttributeString
+        ? helmetIgnoreAttributeString.split(",")
         : [];
+
+    // Determine existing attributes
+    const helmetAttributes = [];
+    if (elementTag.hasAttributes()) {
+        const attrs = elementTag.attributes;
+        for (let i = attrs.length - 1; i >= 0; i--) {
+            if (helmetIgnoreAttributes.indexOf(attrs[i].name) === -1) {
+                helmetAttributes.push(attrs[i].name); // attrs[i].value
+            }
+        }
+    }
     const attributesToRemove = [].concat(helmetAttributes);
     const attributeKeys = Object.keys(attributes);
 
@@ -400,20 +416,12 @@ const updateAttributes = (tagName, attributes) => {
     for (let i = attributesToRemove.length - 1; i >= 0; i--) {
         elementTag.removeAttribute(attributesToRemove[i]);
     }
-
-    if (helmetAttributes.length === attributesToRemove.length) {
-        elementTag.removeAttribute(HELMET_ATTRIBUTE);
-    } else if (
-        elementTag.getAttribute(HELMET_ATTRIBUTE) !== attributeKeys.join(",")
-    ) {
-        elementTag.setAttribute(HELMET_ATTRIBUTE, attributeKeys.join(","));
-    }
 };
 
 const updateTags = (type, tags) => {
     const headElement = document.head || document.querySelector(TAG_NAMES.HEAD);
     const tagNodes = headElement.querySelectorAll(
-        `${type}[${HELMET_ATTRIBUTE}]`
+        `${type}:not([${HELMET_IGNORE_ATTRIBUTE}])`
     );
     const oldTags = Array.prototype.slice.call(tagNodes);
     const newTags = [];
@@ -436,15 +444,16 @@ const updateTags = (type, tags) => {
                             );
                         }
                     } else {
-                        const value = typeof tag[attribute] === "undefined"
-                            ? ""
-                            : tag[attribute];
+                        const value =
+                            typeof tag[attribute] === "undefined"
+                                ? ""
+                                : tag[attribute];
                         newElement.setAttribute(attribute, value);
                     }
                 }
             }
 
-            newElement.setAttribute(HELMET_ATTRIBUTE, "true");
+            // newElement.setAttribute(HELMET_ATTRIBUTE, "true");
 
             // Remove a duplicate tag from domTagstoRemove, so it isn't cleared.
             if (
@@ -471,9 +480,10 @@ const updateTags = (type, tags) => {
 
 const generateElementAttributesAsString = attributes =>
     Object.keys(attributes).reduce((str, key) => {
-        const attr = typeof attributes[key] !== "undefined"
-            ? `${key}="${attributes[key]}"`
-            : `${key}`;
+        const attr =
+            typeof attributes[key] !== "undefined"
+                ? `${key}="${attributes[key]}"`
+                : `${key}`;
         return str ? `${str} ${attr}` : attr;
     }, "");
 
@@ -481,11 +491,11 @@ const generateTitleAsString = (type, title, attributes, encode) => {
     const attributeString = generateElementAttributesAsString(attributes);
     const flattenedTitle = flattenArray(title);
     return attributeString
-        ? `<${type} ${HELMET_ATTRIBUTE}="true" ${attributeString}>${encodeSpecialCharacters(
+        ? `<${type} ${attributeString}>${encodeSpecialCharacters(
               flattenedTitle,
               encode
           )}</${type}>`
-        : `<${type} ${HELMET_ATTRIBUTE}="true">${encodeSpecialCharacters(
+        : `<${type}>${encodeSpecialCharacters(
               flattenedTitle,
               encode
           )}</${type}>`;
@@ -502,12 +512,13 @@ const generateTagsAsString = (type, tags, encode) =>
                     )
             )
             .reduce((string, attribute) => {
-                const attr = typeof tag[attribute] === "undefined"
-                    ? attribute
-                    : `${attribute}="${encodeSpecialCharacters(
-                          tag[attribute],
-                          encode
-                      )}"`;
+                const attr =
+                    typeof tag[attribute] === "undefined"
+                        ? attribute
+                        : `${attribute}="${encodeSpecialCharacters(
+                              tag[attribute],
+                              encode
+                          )}"`;
                 return string ? `${string} ${attr}` : attr;
             }, "");
 
@@ -515,9 +526,9 @@ const generateTagsAsString = (type, tags, encode) =>
 
         const isSelfClosing = SELF_CLOSING_TAGS.indexOf(type) === -1;
 
-        return `${str}<${type} ${HELMET_ATTRIBUTE}="true" ${attributeHtml}${isSelfClosing
-            ? `/>`
-            : `>${tagContent}</${type}>`}`;
+        return `${str}<${type} ${attributeHtml}${
+            isSelfClosing ? `/>` : `>${tagContent}</${type}>`
+        }`;
     }, "");
 
 const convertElementAttributestoReactProps = (attributes, initProps = {}) => {
@@ -537,8 +548,8 @@ const convertReactPropstoHtmlAttributes = (props, initAttributes = {}) => {
 const generateTitleAsReactComponent = (type, title, attributes) => {
     // assigning into an array to define toString function on it
     const initProps = {
-        key: title,
-        [HELMET_ATTRIBUTE]: true
+        key: title
+        // [HELMET_ATTRIBUTE]: true
     };
     const props = convertElementAttributestoReactProps(attributes, initProps);
 
@@ -548,8 +559,8 @@ const generateTitleAsReactComponent = (type, title, attributes) => {
 const generateTagsAsReactComponent = (type, tags) =>
     tags.map((tag, i) => {
         const mappedTag = {
-            key: i,
-            [HELMET_ATTRIBUTE]: true
+            key: i
+            // [HELMET_ATTRIBUTE]: true
         };
 
         Object.keys(tag).forEach(attribute => {
