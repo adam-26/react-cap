@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.2.3"></a>
+## [5.2.3](https://github.com/adam-26/react-cap/compare/v5.2.2...v5.2.3) (2017-12-06)
+
+
+### Bug Fixes
+
+* **docs:** Readme ([970d960](https://github.com/adam-26/react-cap/commit/970d960))
+* **docs:** Readme ([50d9723](https://github.com/adam-26/react-cap/commit/50d9723))
+
+
+
 <a name="5.2.2"></a>
 ## [5.2.2](https://github.com/adam-26/react-cap/compare/5.2.0...5.2.2) (2017-12-06)
 
