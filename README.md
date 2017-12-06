@@ -12,10 +12,5 @@ _its the helmet utils, with the data-react-helmet attribute removed_
 
 See [react-html-metadata](https://github.com/adam-26/react-html-metadata) for an implementation that uses this package.
 
-TODO (add issues):
- - update yarn.lock/shrinkwrap
- - links to package using this.
- - In other lib? add support for DIFF, so only exact attr (values) can be removed without the 'ignore' attribute
-
 ## License
 MIT
