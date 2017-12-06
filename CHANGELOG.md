@@ -1,3 +1,21 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="5.2.2"></a>
+## [5.2.2](https://github.com/adam-26/react-cap/compare/5.2.0...5.2.2) (2017-12-06)
+
+
+### Bug Fixes
+
+* **API:** Remove data-react-helmet ([7032a0e](https://github.com/adam-26/react-cap/commit/7032a0e))
+* **build:** CirceCI ([4350b16](https://github.com/adam-26/react-cap/commit/4350b16))
+* **build:** circleCI ([ff04449](https://github.com/adam-26/react-cap/commit/ff04449))
+* **build:** circleCI ([b595a43](https://github.com/adam-26/react-cap/commit/b595a43))
+* **import:** Main ([de6b6b7](https://github.com/adam-26/react-cap/commit/de6b6b7))
+
+
+
 <a name="5.2.0"></a>
 # [5.2.0](https://github.com/nfl/react-helmet/compare/5.1.3...5.2.0) (2017-08-29)
 
