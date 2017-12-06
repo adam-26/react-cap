@@ -2,7 +2,7 @@
 
 module.exports = function(config) {
     function normalizationBrowserName(browser) {
-        return browser.toLowerCase().split(/[ /-]/)[0];
+        return `json/${browser.toLowerCase().split(/[ /-]/)[0]}`;
     }
 
     config.set({
@@ -30,12 +30,21 @@ module.exports = function(config) {
         },
 
         coverageReporter: {
-            dir: "coverage/json",
+            dir: ".build/coverage",
             includeAllSources: true,
             reporters: [
                 {
                     type: "json",
                     subdir: normalizationBrowserName
+                },
+                {
+                    type: "lcov",
+                    subdir: "lcov-report"
+                },
+                {
+                    type: "lcovonly",
+                    subdir: ".",
+                    file: "lcov.info"
                 }
             ]
         },
@@ -61,7 +70,20 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: "dots", "progress", "junit", "growl", "coverage"
-        reporters: ["coverage", "spec"],
+        reporters: ["coverage", "spec", "junit"],
+
+        // the default configuration
+        junitReporter: {
+            outputDir: "./.build/test",
+            outputFile: "test-results.xml",
+            useBrowserName: false
+            // suite: '', // suite will become the package name attribute in xml testsuite element
+            // useBrowserName: true, // add browser name to report and classes names
+            // nameFormatter: undefined, // function (browser, result) to customize the name attribute in xml testcase element
+            // classNameFormatter: undefined, // function (browser, result) to customize the classname attribute in xml testcase element
+            // properties: {} // key value pair of properties to add to the <properties> section of the report
+            // xmlVersion: null // use '1' if reporting to be per SonarQube 6.2 XML format
+        },
 
         // web server port
         port: 9876,

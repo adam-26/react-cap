@@ -5,10 +5,10 @@ import deepEqual from "deep-equal";
 import {
     convertReactPropstoHtmlAttributes,
     handleClientStateChange,
-    mapStateOnServer,
     reducePropsToState,
     warn
 } from "../src/HelmetUtils.js";
+import {mapStateOnServer} from "../src/HelmetServerUtils";
 import {TAG_NAMES, VALID_TAG_NAMES} from "../src/HelmetConstants.js";
 
 const Helmet = Component =>

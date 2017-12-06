@@ -3,6 +3,8 @@
 .editorconfig
 .eslintrc
 .nvmrc
+.build
+.circleci
 *.yml
 CHANGELOG.md
 CONTRIBUTING.md
