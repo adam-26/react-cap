@@ -5,7 +5,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ReactServer from "react-dom/server";
-import {Helmet} from "./Helmet";
+import {Helmet} from "../src/Helmet";
 import {HTML_TAG_MAP, HELMET_IGNORE_ATTRIBUTE} from "../src/HelmetConstants";
 import {requestAnimationFrame} from "../src/HelmetUtils.js";
 

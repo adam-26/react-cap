@@ -8,7 +8,9 @@ jobs:
     environment:
       CC_TEST_REPORTER_ID: c36bffdf4add7c40b8287ab819bd6984f3c16904ff1db7684fd243b8c2abe00a
     docker:
-      - image: node:8.4
+      - image: circleci/node:8.9-browsers
+        environment:
+            CHROME_BIN: "/usr/bin/google-chrome"
     working_directory: ~/react-cap
     steps:
       - checkout
