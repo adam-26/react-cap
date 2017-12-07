@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.3.0"></a>
+# [5.3.0](https://github.com/adam-26/react-cap/compare/v5.2.3...v5.3.0) (2017-12-07)
+
+
+### Features
+
+* **ignore:** modify attr name ([d95abe7](https://github.com/adam-26/react-cap/commit/d95abe7))
+* **ignore:** modify attr name ([7813f71](https://github.com/adam-26/react-cap/commit/7813f71))
+
+
+
 <a name="5.2.3"></a>
 ## [5.2.3](https://github.com/adam-26/react-cap/compare/v5.2.2...v5.2.3) (2017-12-06)
 
