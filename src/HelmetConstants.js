@@ -64,4 +64,4 @@ export const SELF_CLOSING_TAGS = [
     TAG_NAMES.STYLE
 ];
 
-export const HELMET_IGNORE_ATTRIBUTE = "data-cap-ignore";
+export const HELMET_IGNORE_ATTRIBUTE = "data-ignore-metadata";

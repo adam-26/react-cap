@@ -7,8 +7,8 @@ _its react-helmet, with the data-react-helmet attribute removed_
   * No longer uses `data-react-helmet` attributes
   * _Assumes_ all HTML metadata is assigned using this package
   * To prevent react-cap from removing metadata assigned **not using react-cap**:
-    * apply attribute `data-cap-ignore` to an html element to prevent it being removed
-    * apply attribute `data-cap-ignore="attrName,attrName"` to an html element to prevent modification of specific attributes
+    * apply attribute `data-ignore-metadata` to an html element to prevent it being removed
+    * apply attribute `data-ignore-metadata="attrName,attrName"` to an html element to prevent modification of specific attributes
 
 This package was originally created to support using HTML `<head>` metadata with the react v16 streaming interface.
 See [react-html-metadata](https://github.com/adam-26/react-html-metadata) for an implementation that supports react server side streaming.
