@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.3.1"></a>
+## [5.3.1](https://github.com/adam-26/react-cap/compare/v5.3.0...v5.3.1) (2017-12-14)
+
+
+### Bug Fixes
+
+* **docs:** webpack ([8076460](https://github.com/adam-26/react-cap/commit/8076460))
+* **docs:** Webpack ([#8](https://github.com/adam-26/react-cap/issues/8)) ([9f17c28](https://github.com/adam-26/react-cap/commit/9f17c28))
+
+
+
 <a name="5.3.0"></a>
 # [5.3.0](https://github.com/adam-26/react-cap/compare/v5.2.3...v5.3.0) (2017-12-07)
 
