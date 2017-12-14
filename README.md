@@ -34,5 +34,23 @@ import Helmet from 'react-cap';
 For **more documentation, see [react-helmet documentation](https://github.com/nfl/react-helmet)**
 Usage is exactly the same as react-helmet.
 
+#### Usage with webpack style-loader
+
+To prevent the webpack `<style>` tags from being removed, you **must** configure
+the [style-loader with an ignore attribute](https://github.com/webpack-contrib/style-loader#attrs).
+
+```js
+{
+  test: /\.css$/,
+  use: [
+    { loader: 'style-loader', options: { attrs: { data-ignore-metadata: true } } }
+  ]
+}
+```
+
+#### Usage with webpack css-loader
+
+Its recommended you utilize _asset_ files to apply css stylesheets using **react-cap**
+
 ## License
 MIT
