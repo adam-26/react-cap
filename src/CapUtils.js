@@ -1,3 +1,4 @@
+import deepEqual from "deep-equal";
 import {ATTRIBUTE_NAMES, TAG_NAMES} from "./HelmetConstants.js";
 import {
     generateTitleAsReactComponent,
@@ -56,4 +57,4 @@ const mapStateToComponents = ({
     title: getComponentForTag(TAG_NAMES.TITLE, {title, titleAttributes}, encode)
 });
 
-export {reducePropsToState, handleClientStateChange, mapStateToComponents};
+export {reducePropsToState, handleClientStateChange, mapStateToComponents, deepEqual};
