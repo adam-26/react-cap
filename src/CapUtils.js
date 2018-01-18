@@ -57,4 +57,9 @@ const mapStateToComponents = ({
     title: getComponentForTag(TAG_NAMES.TITLE, {title, titleAttributes}, encode)
 });
 
-export {reducePropsToState, handleClientStateChange, mapStateToComponents, deepEqual};
+export {
+    reducePropsToState,
+    handleClientStateChange,
+    mapStateToComponents,
+    deepEqual
+};
