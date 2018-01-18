@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.3.2"></a>
+## [5.3.2](https://github.com/adam-26/react-cap/compare/v5.3.1...v5.3.2) (2018-01-18)
+
+
+### Bug Fixes
+
+* **code:** Export deepEqual ([55d2547](https://github.com/adam-26/react-cap/commit/55d2547))
+* **code:** Export deepEqual ([#9](https://github.com/adam-26/react-cap/issues/9)) ([b202e02](https://github.com/adam-26/react-cap/commit/b202e02))
+* **lint:** formatting ([78fc9d7](https://github.com/adam-26/react-cap/commit/78fc9d7))
+
+
+
 <a name="5.3.1"></a>
 ## [5.3.1](https://github.com/adam-26/react-cap/compare/v5.3.0...v5.3.1) (2017-12-14)
 
