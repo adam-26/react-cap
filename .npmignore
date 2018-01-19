@@ -14,3 +14,4 @@ lib/test
 node_modules
 src
 travis.yml
+npm-shrinkwrap.json
