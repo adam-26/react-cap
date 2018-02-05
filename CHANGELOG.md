@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.4.0"></a>
+# [5.4.0](https://github.com/adam-26/react-cap/compare/v5.3.3...v5.4.0) (2018-02-05)
+
+
+### Features
+
+* **render:** Custom components ([2cdb9d6](https://github.com/adam-26/react-cap/commit/2cdb9d6))
+* **render:** Custom components ([#12](https://github.com/adam-26/react-cap/issues/12)) ([f36981c](https://github.com/adam-26/react-cap/commit/f36981c))
+
+
+
 <a name="5.3.3"></a>
 ## [5.3.3](https://github.com/adam-26/react-cap/compare/v5.3.2...v5.3.3) (2018-01-19)
 
