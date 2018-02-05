@@ -8,7 +8,7 @@ import {
     reducePropsToState
 } from "./HelmetUtils";
 
-const getComponentForTag = (type, tags, encode) => {
+const getComponentForTag = (type, tags, encode, typeComponents) => {
     switch (type) {
         case TAG_NAMES.TITLE:
             return generateTitleAsReactComponent(
@@ -21,7 +21,7 @@ const getComponentForTag = (type, tags, encode) => {
         case ATTRIBUTE_NAMES.HTML:
             return convertElementAttributestoReactProps(tags);
         default:
-            return generateTagsAsReactComponent(type, tags);
+            return generateTagsAsReactComponent(type, tags, typeComponents);
     }
 };
 
@@ -36,9 +36,10 @@ const mapStateToComponents = ({
     scriptTags,
     styleTags,
     title = "",
-    titleAttributes
+    titleAttributes,
+    typeComponents
 }) => ({
-    base: getComponentForTag(TAG_NAMES.BASE, baseTag, encode),
+    base: getComponentForTag(TAG_NAMES.BASE, baseTag, encode, typeComponents),
     bodyAttributes: getComponentForTag(
         ATTRIBUTE_NAMES.BODY,
         bodyAttributes,
@@ -49,11 +50,26 @@ const mapStateToComponents = ({
         htmlAttributes,
         encode
     ),
-    link: getComponentForTag(TAG_NAMES.LINK, linkTags, encode),
-    meta: getComponentForTag(TAG_NAMES.META, metaTags, encode),
-    noscript: getComponentForTag(TAG_NAMES.NOSCRIPT, noscriptTags, encode),
-    script: getComponentForTag(TAG_NAMES.SCRIPT, scriptTags, encode),
-    style: getComponentForTag(TAG_NAMES.STYLE, styleTags, encode),
+    link: getComponentForTag(TAG_NAMES.LINK, linkTags, encode, typeComponents),
+    meta: getComponentForTag(TAG_NAMES.META, metaTags, encode, typeComponents),
+    noscript: getComponentForTag(
+        TAG_NAMES.NOSCRIPT,
+        noscriptTags,
+        encode,
+        typeComponents
+    ),
+    script: getComponentForTag(
+        TAG_NAMES.SCRIPT,
+        scriptTags,
+        encode,
+        typeComponents
+    ),
+    style: getComponentForTag(
+        TAG_NAMES.STYLE,
+        styleTags,
+        encode,
+        typeComponents
+    ),
     title: getComponentForTag(TAG_NAMES.TITLE, {title, titleAttributes}, encode)
 });
 

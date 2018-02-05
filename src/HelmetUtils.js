@@ -486,7 +486,7 @@ const generateTitleAsReactComponent = (type, title, attributes) => {
     return [React.createElement(TAG_NAMES.TITLE, props, title)];
 };
 
-const generateTagsAsReactComponent = (type, tags) =>
+const generateTagsAsReactComponent = (type, tags, typeComponents = {}) =>
     tags.map((tag, i) => {
         const mappedTag = {
             key: i
@@ -505,6 +505,11 @@ const generateTagsAsReactComponent = (type, tags) =>
                 mappedTag[mappedAttribute] = tag[attribute];
             }
         });
+
+        if (typeComponents[type]) {
+            const {component, props} = objectAssign({}, typeComponents[type]);
+            return React.createElement(component, {...props, ...mappedTag});
+        }
 
         return React.createElement(type, mappedTag);
     });
