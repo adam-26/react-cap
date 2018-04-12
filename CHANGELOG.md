@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.5.0"></a>
+# [5.5.0](https://github.com/adam-26/react-cap/compare/v5.4.0...v5.5.0) (2018-04-12)
+
+
+### Features
+
+* **release:** Use rollup ([6fece57](https://github.com/adam-26/react-cap/commit/6fece57))
+
+
+
 <a name="5.4.0"></a>
 # [5.4.0](https://github.com/adam-26/react-cap/compare/v5.3.3...v5.4.0) (2018-02-05)
 
