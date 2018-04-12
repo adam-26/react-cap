@@ -58,7 +58,7 @@ jobs:
             COVERAGE_EXIT_CODE=$?
 
             # Copy the coverage file for reporting purposes
-            cp ./.build/coverage/lcov.info ./coverage
+            cp -r ./.build/coverage/. ./coverage/
 
             # Prevent errors when re-building on the CI server (reports previously uploaded)
             set +e
@@ -88,7 +88,7 @@ jobs:
               git config user.name CircleCI
 
               # Build for release
-              npm run compile
+              npm run build:lib
 
               # Tag the release, update package.json version and changelog, commit and push to github.
               ./node_modules/.bin/standard-version --no-verify -m "chore(release): %s. [skip ci]"

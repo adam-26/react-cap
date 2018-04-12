@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import withSideEffect from "react-side-effect";
 import deepEqual from "deep-equal";
+import {reducePropsToState} from "./HelmetUtils.js";
 import {
     convertReactPropstoHtmlAttributes,
     handleClientStateChange,
-    reducePropsToState,
     warn
-} from "./HelmetUtils.js";
+} from "./HelmetDomUtils";
 import {mapStateOnServer} from "./HelmetServerUtils";
 import {TAG_NAMES, VALID_TAG_NAMES} from "./HelmetConstants.js";
 

@@ -5,13 +5,14 @@
 .nvmrc
 .build
 .circleci
+.eslintignore
 *.yml
 CHANGELOG.md
 CONTRIBUTING.md
 coverage
 karma.config.js
-lib/test
 node_modules
 src
 travis.yml
 npm-shrinkwrap.json
+rollup.config.lib.js
