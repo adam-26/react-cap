@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 import ReactServer from "react-dom/server";
 import {Helmet} from "../src/Helmet";
 import {HTML_TAG_MAP, HELMET_IGNORE_ATTRIBUTE} from "../src/HelmetConstants";
-import {requestAnimationFrame} from "../src/HelmetUtils.js";
+import {requestAnimationFrame} from "../src/HelmetDomUtils";
 
 describe("Helmet - Declarative API", () => {
     let headElement;
