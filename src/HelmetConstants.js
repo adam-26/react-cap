@@ -21,9 +21,9 @@ export const TAG_NAMES = {
     ...HEAD_TAG_NAMES
 };
 
-export const VALID_TAG_NAMES = Object.keys(TAG_NAMES).map(
-    name => TAG_NAMES[name]
-);
+export const VALID_TAG_NAMES = Object.keys(TAG_NAMES)
+    .map(name => TAG_NAMES[name])
+    .sort();
 
 export const TAG_PROPERTIES = {
     CHARSET: "charset",

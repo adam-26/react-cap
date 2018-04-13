@@ -78,7 +78,6 @@ const generateTagsAsString = (type, tags, encode) =>
     }, "");
 
 const getMethodsForTag = (type, tags, encode, componentOptions) => {
-    console.warn(tags.titleAttributes);
     switch (type) {
         case TAG_NAMES.TITLE:
             return {

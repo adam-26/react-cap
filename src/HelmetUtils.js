@@ -278,9 +278,9 @@ const generateTitleAsReactComponent = (
     const initProps = {
         key: title
     };
-console.warn(attributes);
+
     let props = convertElementAttributestoReactProps(attributes, initProps);
-console.warn(props);
+
     if (options[type]) {
         const {component, props: typeComponentProps = {}} = options[type];
         props = {...props, ...typeComponentProps};

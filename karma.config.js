@@ -22,7 +22,10 @@ module.exports = function(config) {
         // frameworks to use
         frameworks: ["chai-sinon", "mocha"],
 
-        files: ["./test/test.js"],
+        files: [
+            { pattern: 'node_modules/babel-polyfill/browser.js', instrument: false},
+            "./test/test.js"
+        ],
 
         preprocessors: {
             // add webpack as preprocessor
