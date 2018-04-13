@@ -45,7 +45,6 @@ const plugins = [
 const externals = [
     "react",
     "react-dom/server",
-    "object-assign",
     "deep-equal",
     "object-assign",
     "react-side-effect",
@@ -84,7 +83,13 @@ export default [
                 ...libOptions
             }
         ],
-        external: externals,
+        external: [
+            "react",
+            "react-dom/server",
+            "deep-equal",
+            "react-side-effect",
+            "prop-types"
+        ],
         plugins
     },
     {

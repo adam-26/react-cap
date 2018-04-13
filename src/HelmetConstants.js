@@ -4,17 +4,21 @@ export const ATTRIBUTE_NAMES = {
     TITLE: "titleAttributes"
 };
 
-export const TAG_NAMES = {
+export const HEAD_TAG_NAMES = {
     BASE: "base",
-    BODY: "body",
-    HEAD: "head",
-    HTML: "html",
     LINK: "link",
     META: "meta",
     NOSCRIPT: "noscript",
     SCRIPT: "script",
     STYLE: "style",
     TITLE: "title"
+};
+
+export const TAG_NAMES = {
+    BODY: "body",
+    HEAD: "head",
+    HTML: "html",
+    ...HEAD_TAG_NAMES
 };
 
 export const VALID_TAG_NAMES = Object.keys(TAG_NAMES).map(

@@ -77,7 +77,8 @@ const generateTagsAsString = (type, tags, encode) =>
         }`;
     }, "");
 
-const getMethodsForTag = (type, tags, encode) => {
+const getMethodsForTag = (type, tags, encode, componentOptions) => {
+    console.warn(tags.titleAttributes);
     switch (type) {
         case TAG_NAMES.TITLE:
             return {
@@ -86,7 +87,7 @@ const getMethodsForTag = (type, tags, encode) => {
                         type,
                         tags.title,
                         tags.titleAttributes,
-                        encode
+                        componentOptions
                     ),
                 toString: () =>
                     generateTitleAsString(
@@ -104,42 +105,68 @@ const getMethodsForTag = (type, tags, encode) => {
             };
         default:
             return {
-                toComponent: () => generateTagsAsReactComponent(type, tags),
+                toComponent: () =>
+                    generateTagsAsReactComponent(type, tags, componentOptions),
                 toString: () => generateTagsAsString(type, tags, encode)
             };
     }
 };
 
-const mapStateOnServer = ({
-    baseTag,
-    bodyAttributes,
-    encode,
-    htmlAttributes,
-    linkTags,
-    metaTags,
-    noscriptTags,
-    scriptTags,
-    styleTags,
-    title = "",
-    titleAttributes
-}) => ({
-    base: getMethodsForTag(TAG_NAMES.BASE, baseTag, encode),
+const mapStateOnServer = (
+    {
+        baseTag,
+        bodyAttributes,
+        encode,
+        htmlAttributes,
+        linkTags,
+        metaTags,
+        noscriptTags,
+        scriptTags,
+        styleTags,
+        title = "",
+        titleAttributes
+    },
+    componentOptions = {}
+) => ({
+    base: getMethodsForTag(TAG_NAMES.BASE, baseTag, encode, componentOptions),
     bodyAttributes: getMethodsForTag(
         ATTRIBUTE_NAMES.BODY,
         bodyAttributes,
-        encode
+        encode,
+        componentOptions
     ),
     htmlAttributes: getMethodsForTag(
         ATTRIBUTE_NAMES.HTML,
         htmlAttributes,
-        encode
+        encode,
+        componentOptions
     ),
-    link: getMethodsForTag(TAG_NAMES.LINK, linkTags, encode),
-    meta: getMethodsForTag(TAG_NAMES.META, metaTags, encode),
-    noscript: getMethodsForTag(TAG_NAMES.NOSCRIPT, noscriptTags, encode),
-    script: getMethodsForTag(TAG_NAMES.SCRIPT, scriptTags, encode),
-    style: getMethodsForTag(TAG_NAMES.STYLE, styleTags, encode),
-    title: getMethodsForTag(TAG_NAMES.TITLE, {title, titleAttributes}, encode)
+    link: getMethodsForTag(TAG_NAMES.LINK, linkTags, encode, componentOptions),
+    meta: getMethodsForTag(TAG_NAMES.META, metaTags, encode, componentOptions),
+    noscript: getMethodsForTag(
+        TAG_NAMES.NOSCRIPT,
+        noscriptTags,
+        encode,
+        componentOptions
+    ),
+    script: getMethodsForTag(
+        TAG_NAMES.SCRIPT,
+        scriptTags,
+        encode,
+        componentOptions
+    ),
+    style: getMethodsForTag(
+        TAG_NAMES.STYLE,
+        styleTags,
+        encode,
+        componentOptions
+    ),
+    title: getMethodsForTag(
+        TAG_NAMES.TITLE,
+        {title, titleAttributes},
+        encode,
+        componentOptions
+    )
 });
 
 export {mapStateOnServer};

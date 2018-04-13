@@ -232,9 +232,9 @@ const reducePropsToState = propsList => ({
     )
 });
 
-const generateTagsAsReactComponent = (type, tags, typeComponents = {}) =>
+const generateTagsAsReactComponent = (type, tags, options = {}) =>
     tags.map((tag, i) => {
-        const mappedTag = {
+        let mappedTag = {
             key: i
         };
 
@@ -252,9 +252,10 @@ const generateTagsAsReactComponent = (type, tags, typeComponents = {}) =>
             }
         });
 
-        if (typeComponents[type]) {
-            const {component, props} = objectAssign({}, typeComponents[type]);
-            return React.createElement(component, {...props, ...mappedTag});
+        if (options[type]) {
+            const {component, props} = options[type];
+            mappedTag = {...props, ...mappedTag};
+            type = component || type;
         }
 
         return React.createElement(type, mappedTag);
@@ -267,14 +268,26 @@ const convertElementAttributestoReactProps = (attributes, initProps = {}) => {
     }, initProps);
 };
 
-const generateTitleAsReactComponent = (type, title, attributes) => {
+const generateTitleAsReactComponent = (
+    type,
+    title,
+    attributes,
+    options = {}
+) => {
     // assigning into an array to define toString function on it
     const initProps = {
         key: title
     };
-    const props = convertElementAttributestoReactProps(attributes, initProps);
+console.warn(attributes);
+    let props = convertElementAttributestoReactProps(attributes, initProps);
+console.warn(props);
+    if (options[type]) {
+        const {component, props: typeComponentProps = {}} = options[type];
+        props = {...props, ...typeComponentProps};
+        type = component || type;
+    }
 
-    return [React.createElement(TAG_NAMES.TITLE, props, title)];
+    return [React.createElement(type, props, title)];
 };
 
 const flattenArray = possibleArray => {
