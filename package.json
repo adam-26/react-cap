@@ -1,7 +1,7 @@
 {
   "name": "react-cap",
   "description": "A fork of react-helmet with modified public API",
-  "version": "5.6.0",
+  "version": "5.7.0",
   "main": "lib/Helmet.js",
   "module": "lib/Helmet.js",
   "js:next": "lib/Helmet.es.js",
