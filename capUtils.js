@@ -1,5 +1,5 @@
-export {
-    deepEqual,
-    reducePropsToState,
-    mapStateToComponents
-} from "./lib/capUtils";
+var capUtils = require('./lib/capUtils');
+
+exports.deepEqual = capUtils.deepEqual;
+exports.reducePropsToState = capUtils.reducePropsToState;
+exports.mapStateToComponents = capUtils.mapStateToComponents;

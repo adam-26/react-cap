@@ -2,5 +2,7 @@ lib/
 .build/
 capUtils.js
 server.js
+capUtils.es.js
+server.es.js
 rollup.config.lib.js
 karma.config.js

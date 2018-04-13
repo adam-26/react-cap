@@ -1,1 +1,2 @@
-export {mapStateOnServer} from "./lib/server";
+var server = require('./lib/server');
+exports.mapStateOnServer = server.mapStateOnServer;
