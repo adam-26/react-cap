@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.6.0"></a>
+# [5.6.0](https://github.com/adam-26/react-cap/compare/v5.5.2...v5.6.0) (2018-04-13)
+
+
+### Features
+
+* **code:** Add componentOptions ([#16](https://github.com/adam-26/react-cap/issues/16)) ([44eed42](https://github.com/adam-26/react-cap/commit/44eed42))
+
+
+
 <a name="5.5.2"></a>
 ## [5.5.2](https://github.com/adam-26/react-cap/compare/v5.5.1...v5.5.2) (2018-04-13)
 
