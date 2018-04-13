@@ -24,18 +24,21 @@ const getComponentForTag = (type, tags, options) => {
     }
 };
 
-const mapStateToComponents = ({
-    baseTag,
-    bodyAttributes,
-    htmlAttributes,
-    linkTags,
-    metaTags,
-    noscriptTags,
-    scriptTags,
-    styleTags,
-    title = "",
-    titleAttributes
-}, componentOptions) => ({
+const mapStateToComponents = (
+    {
+        baseTag,
+        bodyAttributes,
+        htmlAttributes,
+        linkTags,
+        metaTags,
+        noscriptTags,
+        scriptTags,
+        styleTags,
+        title = "",
+        titleAttributes
+    },
+    componentOptions
+) => ({
     base: getComponentForTag(HEAD_TAG_NAMES.BASE, baseTag, componentOptions),
     bodyAttributes: getComponentForTag(
         ATTRIBUTE_NAMES.BODY,
@@ -64,7 +67,11 @@ const mapStateToComponents = ({
         styleTags,
         componentOptions
     ),
-    title: getComponentForTag(HEAD_TAG_NAMES.TITLE, {title, titleAttributes}, componentOptions)
+    title: getComponentForTag(
+        HEAD_TAG_NAMES.TITLE,
+        {title, titleAttributes},
+        componentOptions
+    )
 });
 
 export {reducePropsToState, mapStateToComponents, deepEqual, HEAD_TAG_NAMES};
