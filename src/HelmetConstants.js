@@ -4,11 +4,8 @@ export const ATTRIBUTE_NAMES = {
     TITLE: "titleAttributes"
 };
 
-export const TAG_NAMES = {
+export const HEAD_TAG_NAMES = {
     BASE: "base",
-    BODY: "body",
-    HEAD: "head",
-    HTML: "html",
     LINK: "link",
     META: "meta",
     NOSCRIPT: "noscript",
@@ -17,9 +14,16 @@ export const TAG_NAMES = {
     TITLE: "title"
 };
 
-export const VALID_TAG_NAMES = Object.keys(TAG_NAMES).map(
-    name => TAG_NAMES[name]
-);
+export const TAG_NAMES = {
+    BODY: "body",
+    HEAD: "head",
+    HTML: "html",
+    ...HEAD_TAG_NAMES
+};
+
+export const VALID_TAG_NAMES = Object.keys(TAG_NAMES)
+    .map(name => TAG_NAMES[name])
+    .sort();
 
 export const TAG_PROPERTIES = {
     CHARSET: "charset",

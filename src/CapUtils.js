@@ -1,5 +1,5 @@
 import deepEqual from "deep-equal";
-import {ATTRIBUTE_NAMES, TAG_NAMES} from "./HelmetConstants.js";
+import {ATTRIBUTE_NAMES, HEAD_TAG_NAMES} from "./HelmetConstants.js";
 import {
     generateTitleAsReactComponent,
     convertElementAttributestoReactProps,
@@ -7,69 +7,71 @@ import {
     reducePropsToState
 } from "./HelmetUtils";
 
-const getComponentForTag = (type, tags, encode, typeComponents) => {
+const getComponentForTag = (type, tags, options) => {
     switch (type) {
-        case TAG_NAMES.TITLE:
+        case HEAD_TAG_NAMES.TITLE:
             return generateTitleAsReactComponent(
                 type,
                 tags.title,
                 tags.titleAttributes,
-                encode
+                options
             );
         case ATTRIBUTE_NAMES.BODY:
         case ATTRIBUTE_NAMES.HTML:
             return convertElementAttributestoReactProps(tags);
         default:
-            return generateTagsAsReactComponent(type, tags, typeComponents);
+            return generateTagsAsReactComponent(type, tags, options);
     }
 };
 
-const mapStateToComponents = ({
-    baseTag,
-    bodyAttributes,
-    encode,
-    htmlAttributes,
-    linkTags,
-    metaTags,
-    noscriptTags,
-    scriptTags,
-    styleTags,
-    title = "",
-    titleAttributes,
-    typeComponents
-}) => ({
-    base: getComponentForTag(TAG_NAMES.BASE, baseTag, encode, typeComponents),
+const mapStateToComponents = (
+    {
+        baseTag,
+        bodyAttributes,
+        htmlAttributes,
+        linkTags,
+        metaTags,
+        noscriptTags,
+        scriptTags,
+        styleTags,
+        title = "",
+        titleAttributes
+    },
+    componentOptions
+) => ({
+    base: getComponentForTag(HEAD_TAG_NAMES.BASE, baseTag, componentOptions),
     bodyAttributes: getComponentForTag(
         ATTRIBUTE_NAMES.BODY,
         bodyAttributes,
-        encode
+        componentOptions
     ),
     htmlAttributes: getComponentForTag(
         ATTRIBUTE_NAMES.HTML,
         htmlAttributes,
-        encode
+        componentOptions
     ),
-    link: getComponentForTag(TAG_NAMES.LINK, linkTags, encode, typeComponents),
-    meta: getComponentForTag(TAG_NAMES.META, metaTags, encode, typeComponents),
+    link: getComponentForTag(HEAD_TAG_NAMES.LINK, linkTags, componentOptions),
+    meta: getComponentForTag(HEAD_TAG_NAMES.META, metaTags, componentOptions),
     noscript: getComponentForTag(
-        TAG_NAMES.NOSCRIPT,
+        HEAD_TAG_NAMES.NOSCRIPT,
         noscriptTags,
-        encode,
-        typeComponents
+        componentOptions
     ),
     script: getComponentForTag(
-        TAG_NAMES.SCRIPT,
+        HEAD_TAG_NAMES.SCRIPT,
         scriptTags,
-        encode,
-        typeComponents
+        componentOptions
     ),
     style: getComponentForTag(
-        TAG_NAMES.STYLE,
+        HEAD_TAG_NAMES.STYLE,
         styleTags,
-        encode,
-        typeComponents
+        componentOptions
     ),
-    title: getComponentForTag(TAG_NAMES.TITLE, {title, titleAttributes}, encode)
+    title: getComponentForTag(
+        HEAD_TAG_NAMES.TITLE,
+        {title, titleAttributes},
+        componentOptions
+    )
 });
 
-export {reducePropsToState, mapStateToComponents, deepEqual};
+export {reducePropsToState, mapStateToComponents, deepEqual, HEAD_TAG_NAMES};

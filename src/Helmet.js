@@ -70,7 +70,7 @@ const Helmet = Component =>
                 mappedState = mapStateOnServer({
                     baseTag: [],
                     bodyAttributes: {},
-                    encodeSpecialCharacters: true,
+                    encode: true,
                     htmlAttributes: {},
                     linkTags: [],
                     metaTags: [],
