@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.9.0"></a>
+# [5.9.0](https://github.com/adam-26/react-cap/compare/v5.8.0...v5.9.0) (2018-04-14)
+
+
+### Features
+
+* **code:** server exports ([2a28df3](https://github.com/adam-26/react-cap/commit/2a28df3))
+* **code:** server exports  ([#19](https://github.com/adam-26/react-cap/issues/19)) ([3eb4515](https://github.com/adam-26/react-cap/commit/3eb4515))
+
+
+
 <a name="5.8.0"></a>
 # [5.8.0](https://github.com/adam-26/react-cap/compare/v5.7.0...v5.8.0) (2018-04-14)
 
