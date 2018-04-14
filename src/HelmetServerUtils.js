@@ -168,4 +168,22 @@ const mapStateOnServer = (
     )
 });
 
-export {mapStateOnServer};
+const mapAttributeStateOnServer = (
+    {bodyAttributes, encode, htmlAttributes},
+    componentOptions = {}
+) => ({
+    bodyAttributes: getMethodsForTag(
+        ATTRIBUTE_NAMES.BODY,
+        bodyAttributes,
+        encode,
+        componentOptions
+    ),
+    htmlAttributes: getMethodsForTag(
+        ATTRIBUTE_NAMES.HTML,
+        htmlAttributes,
+        encode,
+        componentOptions
+    )
+});
+
+export {mapStateOnServer, mapAttributeStateOnServer};

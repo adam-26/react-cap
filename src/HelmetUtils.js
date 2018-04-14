@@ -7,6 +7,7 @@ import {
     TAG_NAMES,
     TAG_PROPERTIES
 } from "./HelmetConstants.js";
+import {HELMET_IGNORE_ATTRIBUTE} from "./HelmetConstants";
 
 const getTitleFromPropsList = propsList => {
     const innermostTitle = getInnermostProperty(propsList, TAG_NAMES.TITLE);
@@ -300,11 +301,63 @@ const warn = msg => {
     return console && typeof console.warn === "function" && console.warn(msg);
 };
 
+const updateAttributes = (tagName, attributes) => {
+    const elementTag = document.getElementsByTagName(tagName)[0];
+
+    if (!elementTag) {
+        return;
+    }
+
+    // Determine if any attributes need to be ignored
+    const helmetIgnoreAttributeString = elementTag.getAttribute(
+        HELMET_IGNORE_ATTRIBUTE
+    );
+    const helmetIgnoreAttributes = helmetIgnoreAttributeString
+        ? helmetIgnoreAttributeString.split(",")
+        : [];
+
+    // Determine existing attributes
+    const helmetAttributes = [];
+    if (elementTag.hasAttributes()) {
+        const attrs = elementTag.attributes;
+        for (let i = attrs.length - 1; i >= 0; i--) {
+            if (helmetIgnoreAttributes.indexOf(attrs[i].name) === -1) {
+                helmetAttributes.push(attrs[i].name); // attrs[i].value
+            }
+        }
+    }
+    const attributesToRemove = [].concat(helmetAttributes);
+    const attributeKeys = Object.keys(attributes);
+
+    for (let i = 0; i < attributeKeys.length; i++) {
+        const attribute = attributeKeys[i];
+        const value = attributes[attribute] || "";
+
+        if (elementTag.getAttribute(attribute) !== value) {
+            elementTag.setAttribute(attribute, value);
+        }
+
+        if (helmetAttributes.indexOf(attribute) === -1) {
+            helmetAttributes.push(attribute);
+        }
+
+        const indexToSave = attributesToRemove.indexOf(attribute);
+        if (indexToSave !== -1) {
+            attributesToRemove.splice(indexToSave, 1);
+        }
+    }
+
+    for (let i = attributesToRemove.length - 1; i >= 0; i--) {
+        elementTag.removeAttribute(attributesToRemove[i]);
+    }
+};
+
 export {
     reducePropsToState,
     generateTitleAsReactComponent,
     convertElementAttributestoReactProps,
     generateTagsAsReactComponent,
     flattenArray,
-    warn
+    warn,
+    updateAttributes
 };
