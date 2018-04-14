@@ -1,4 +1,4 @@
-import {flattenArray, warn} from "./HelmetUtils";
+import {flattenArray, warn, updateAttributes} from "./HelmetUtils";
 import {
     HELMET_IGNORE_ATTRIBUTE,
     HTML_TAG_MAP,
@@ -113,57 +113,6 @@ const updateTitle = (title, attributes) => {
     }
 
     updateAttributes(TAG_NAMES.TITLE, attributes);
-};
-
-const updateAttributes = (tagName, attributes) => {
-    const elementTag = document.getElementsByTagName(tagName)[0];
-
-    if (!elementTag) {
-        return;
-    }
-
-    // Determine if any attributes need to be ignored
-    const helmetIgnoreAttributeString = elementTag.getAttribute(
-        HELMET_IGNORE_ATTRIBUTE
-    );
-    const helmetIgnoreAttributes = helmetIgnoreAttributeString
-        ? helmetIgnoreAttributeString.split(",")
-        : [];
-
-    // Determine existing attributes
-    const helmetAttributes = [];
-    if (elementTag.hasAttributes()) {
-        const attrs = elementTag.attributes;
-        for (let i = attrs.length - 1; i >= 0; i--) {
-            if (helmetIgnoreAttributes.indexOf(attrs[i].name) === -1) {
-                helmetAttributes.push(attrs[i].name); // attrs[i].value
-            }
-        }
-    }
-    const attributesToRemove = [].concat(helmetAttributes);
-    const attributeKeys = Object.keys(attributes);
-
-    for (let i = 0; i < attributeKeys.length; i++) {
-        const attribute = attributeKeys[i];
-        const value = attributes[attribute] || "";
-
-        if (elementTag.getAttribute(attribute) !== value) {
-            elementTag.setAttribute(attribute, value);
-        }
-
-        if (helmetAttributes.indexOf(attribute) === -1) {
-            helmetAttributes.push(attribute);
-        }
-
-        const indexToSave = attributesToRemove.indexOf(attribute);
-        if (indexToSave !== -1) {
-            attributesToRemove.splice(indexToSave, 1);
-        }
-    }
-
-    for (let i = attributesToRemove.length - 1; i >= 0; i--) {
-        elementTag.removeAttribute(attributesToRemove[i]);
-    }
 };
 
 const updateTags = (type, tags) => {

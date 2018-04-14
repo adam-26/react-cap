@@ -1,10 +1,11 @@
 import deepEqual from "deep-equal";
-import {ATTRIBUTE_NAMES, HEAD_TAG_NAMES} from "./HelmetConstants.js";
+import {ATTRIBUTE_NAMES, HEAD_TAG_NAMES, TAG_NAMES} from "./HelmetConstants.js";
 import {
     generateTitleAsReactComponent,
     convertElementAttributestoReactProps,
     generateTagsAsReactComponent,
-    reducePropsToState
+    reducePropsToState,
+    updateAttributes
 } from "./HelmetUtils";
 
 const getComponentForTag = (type, tags, options) => {
@@ -74,4 +75,15 @@ const mapStateToComponents = (
     )
 });
 
-export {reducePropsToState, mapStateToComponents, deepEqual, HEAD_TAG_NAMES};
+const renderAttributes = ({htmlAttributes, bodyAttributes}) => {
+    updateAttributes(TAG_NAMES.BODY, bodyAttributes);
+    updateAttributes(TAG_NAMES.HTML, htmlAttributes);
+};
+
+export {
+    reducePropsToState,
+    mapStateToComponents,
+    deepEqual,
+    renderAttributes,
+    HEAD_TAG_NAMES
+};
