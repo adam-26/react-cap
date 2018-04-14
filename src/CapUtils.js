@@ -75,9 +75,15 @@ const mapStateToComponents = (
     )
 });
 
-const renderAttributes = ({ htmlAttributes, bodyAttributes }) => {
+const renderAttributes = ({htmlAttributes, bodyAttributes}) => {
     updateAttributes(TAG_NAMES.BODY, bodyAttributes);
     updateAttributes(TAG_NAMES.HTML, htmlAttributes);
 };
 
-export {reducePropsToState, mapStateToComponents, deepEqual, renderAttributes, HEAD_TAG_NAMES};
+export {
+    reducePropsToState,
+    mapStateToComponents,
+    deepEqual,
+    renderAttributes,
+    HEAD_TAG_NAMES
+};
