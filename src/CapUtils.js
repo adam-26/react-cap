@@ -25,55 +25,122 @@ const getComponentForTag = (type, tags, options) => {
     }
 };
 
-const mapStateToComponents = (
+const mapStateToAttributes = (
+    {bodyAttributes, htmlAttributes},
+    componentOptions
+) => {
+    const components = {
+        bodyAttributes: [],
+        htmlAttributes: []
+    };
+
+    if (bodyAttributes) {
+        components.bodyAttributes = getComponentForTag(
+            ATTRIBUTE_NAMES.BODY,
+            bodyAttributes,
+            componentOptions
+        );
+    }
+
+    if (htmlAttributes) {
+        components.htmlAttributes = getComponentForTag(
+            ATTRIBUTE_NAMES.HTML,
+            htmlAttributes,
+            componentOptions
+        );
+    }
+
+    return components;
+};
+
+const mapStateToHead = (
     {
         baseTag,
-        bodyAttributes,
-        htmlAttributes,
         linkTags,
         metaTags,
         noscriptTags,
         scriptTags,
         styleTags,
-        title = "",
+        title,
         titleAttributes
     },
     componentOptions
-) => ({
-    base: getComponentForTag(HEAD_TAG_NAMES.BASE, baseTag, componentOptions),
-    bodyAttributes: getComponentForTag(
-        ATTRIBUTE_NAMES.BODY,
-        bodyAttributes,
-        componentOptions
-    ),
-    htmlAttributes: getComponentForTag(
-        ATTRIBUTE_NAMES.HTML,
-        htmlAttributes,
-        componentOptions
-    ),
-    link: getComponentForTag(HEAD_TAG_NAMES.LINK, linkTags, componentOptions),
-    meta: getComponentForTag(HEAD_TAG_NAMES.META, metaTags, componentOptions),
-    noscript: getComponentForTag(
-        HEAD_TAG_NAMES.NOSCRIPT,
-        noscriptTags,
-        componentOptions
-    ),
-    script: getComponentForTag(
-        HEAD_TAG_NAMES.SCRIPT,
-        scriptTags,
-        componentOptions
-    ),
-    style: getComponentForTag(
-        HEAD_TAG_NAMES.STYLE,
-        styleTags,
-        componentOptions
-    ),
-    title: getComponentForTag(
-        HEAD_TAG_NAMES.TITLE,
-        {title, titleAttributes},
-        componentOptions
-    )
-});
+) => {
+    const components = {
+        base: [],
+        link: [],
+        meta: [],
+        noscript: [],
+        script: [],
+        style: [],
+        title: []
+    };
+
+    if (baseTag) {
+        components.base = getComponentForTag(
+            HEAD_TAG_NAMES.BASE,
+            baseTag,
+            componentOptions
+        );
+    }
+
+    if (linkTags) {
+        components.link = getComponentForTag(
+            HEAD_TAG_NAMES.LINK,
+            linkTags,
+            componentOptions
+        );
+    }
+
+    if (metaTags) {
+        components.meta = getComponentForTag(
+            HEAD_TAG_NAMES.META,
+            metaTags,
+            componentOptions
+        );
+    }
+
+    if (noscriptTags) {
+        components.noscript = getComponentForTag(
+            HEAD_TAG_NAMES.NOSCRIPT,
+            noscriptTags,
+            componentOptions
+        );
+    }
+
+    if (scriptTags) {
+        components.script = getComponentForTag(
+            HEAD_TAG_NAMES.SCRIPT,
+            scriptTags,
+            componentOptions
+        );
+    }
+
+    if (styleTags) {
+        components.style = getComponentForTag(
+            HEAD_TAG_NAMES.STYLE,
+            styleTags,
+            componentOptions
+        );
+    }
+
+    if (title) {
+        components.title = getComponentForTag(
+            HEAD_TAG_NAMES.TITLE,
+            {title: title || "", titleAttributes},
+            componentOptions
+        );
+    }
+
+    return components;
+};
+
+const mapStateToComponents = (state, options) => {
+    return Object.assign(
+        mapStateToAttributes(state, options),
+        mapStateToHead(state, options)
+    );
+};
 
 const renderAttributes = ({htmlAttributes, bodyAttributes}) => {
     updateAttributes(TAG_NAMES.BODY, bodyAttributes);
@@ -83,6 +150,8 @@ const renderAttributes = ({htmlAttributes, bodyAttributes}) => {
 export {
     reducePropsToState,
     mapStateToComponents,
+    mapStateToAttributes,
+    mapStateToHead,
     deepEqual,
     renderAttributes,
     HEAD_TAG_NAMES
