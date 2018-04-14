@@ -7,7 +7,6 @@ import {
     reducePropsToState,
     updateAttributes
 } from "./HelmetUtils";
-import {HELMET_IGNORE_ATTRIBUTE, TAG_NAMES} from "./HelmetConstants";
 
 const getComponentForTag = (type, tags, options) => {
     switch (type) {

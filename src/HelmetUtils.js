@@ -5,9 +5,9 @@ import {
     HELMET_PROPS,
     REACT_TAG_MAP,
     TAG_NAMES,
-    TAG_PROPERTIES
+    TAG_PROPERTIES,
+    HELMET_IGNORE_ATTRIBUTE
 } from "./HelmetConstants.js";
-import {HELMET_IGNORE_ATTRIBUTE} from "./HelmetConstants";
 
 const getTitleFromPropsList = propsList => {
     const innermostTitle = getInnermostProperty(propsList, TAG_NAMES.TITLE);
