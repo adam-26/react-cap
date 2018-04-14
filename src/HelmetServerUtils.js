@@ -111,7 +111,14 @@ const getMethodsForTag = (type, tags, encode, componentOptions) => {
     }
 };
 
-const mapStateOnServer = (
+const mapStateOnServer = (state, options = {}) => {
+    return Object.assign(
+        mapAttributeStateOnServer(state, options),
+        mapComponentStateOnServer(state, options)
+    );
+};
+
+const mapComponentStateOnServer = (
     {
         baseTag,
         bodyAttributes,
@@ -128,18 +135,6 @@ const mapStateOnServer = (
     componentOptions = {}
 ) => ({
     base: getMethodsForTag(TAG_NAMES.BASE, baseTag, encode, componentOptions),
-    bodyAttributes: getMethodsForTag(
-        ATTRIBUTE_NAMES.BODY,
-        bodyAttributes,
-        encode,
-        componentOptions
-    ),
-    htmlAttributes: getMethodsForTag(
-        ATTRIBUTE_NAMES.HTML,
-        htmlAttributes,
-        encode,
-        componentOptions
-    ),
     link: getMethodsForTag(TAG_NAMES.LINK, linkTags, encode, componentOptions),
     meta: getMethodsForTag(TAG_NAMES.META, metaTags, encode, componentOptions),
     noscript: getMethodsForTag(
@@ -186,4 +181,4 @@ const mapAttributeStateOnServer = (
     )
 });
 
-export {mapStateOnServer, mapAttributeStateOnServer};
+export {mapStateOnServer, mapAttributeStateOnServer, mapComponentStateOnServer};
