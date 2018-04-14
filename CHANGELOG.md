@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.8.0"></a>
+# [5.8.0](https://github.com/adam-26/react-cap/compare/v5.7.0...v5.8.0) (2018-04-14)
+
+
+### Bug Fixes
+
+* **build:** lint ([3b8d513](https://github.com/adam-26/react-cap/commit/3b8d513))
+* **code:** Duplicate import ([bd05725](https://github.com/adam-26/react-cap/commit/bd05725))
+
+
+### Features
+
+* **code:** Attribute updates ([3908cbc](https://github.com/adam-26/react-cap/commit/3908cbc))
+* **code:** Target reducers ([d253591](https://github.com/adam-26/react-cap/commit/d253591))
+
+
+
 <a name="5.7.0"></a>
 # [5.7.0](https://github.com/adam-26/react-cap/compare/v5.6.0...v5.7.0) (2018-04-13)
 
