@@ -1,5 +1,4 @@
 import React from "react";
-import objectAssign from "object-assign";
 import {
     ATTRIBUTE_NAMES,
     HELMET_PROPS,
@@ -159,7 +158,7 @@ const getTagsFromPropsList = (tagName, primaryAttributes, propsList) => {
             const keys = Object.keys(instanceSeenTags);
             for (let i = 0; i < keys.length; i++) {
                 const attributeKey = keys[i];
-                const tagUnion = objectAssign(
+                const tagUnion = Object.assign(
                     {},
                     approvedSeenTags[attributeKey],
                     instanceSeenTags[attributeKey]
@@ -185,53 +184,88 @@ const getInnermostProperty = (propsList, property) => {
     return null;
 };
 
-const reducePropsToState = propsList => ({
-    baseTag: getBaseTagFromPropsList([TAG_PROPERTIES.HREF], propsList),
-    bodyAttributes: getAttributesFromPropsList(ATTRIBUTE_NAMES.BODY, propsList),
-    defer: getInnermostProperty(propsList, HELMET_PROPS.DEFER),
-    encode: getInnermostProperty(
-        propsList,
-        HELMET_PROPS.ENCODE_SPECIAL_CHARACTERS
-    ),
-    htmlAttributes: getAttributesFromPropsList(ATTRIBUTE_NAMES.HTML, propsList),
-    linkTags: getTagsFromPropsList(
-        TAG_NAMES.LINK,
-        [TAG_PROPERTIES.REL, TAG_PROPERTIES.HREF],
-        propsList
-    ),
-    metaTags: getTagsFromPropsList(
-        TAG_NAMES.META,
-        [
-            TAG_PROPERTIES.NAME,
-            TAG_PROPERTIES.CHARSET,
-            TAG_PROPERTIES.HTTPEQUIV,
-            TAG_PROPERTIES.PROPERTY,
-            TAG_PROPERTIES.ITEM_PROP
-        ],
-        propsList
-    ),
-    noscriptTags: getTagsFromPropsList(
-        TAG_NAMES.NOSCRIPT,
-        [TAG_PROPERTIES.INNER_HTML],
-        propsList
-    ),
-    onChangeClientState: getOnChangeClientState(propsList),
-    scriptTags: getTagsFromPropsList(
-        TAG_NAMES.SCRIPT,
-        [TAG_PROPERTIES.SRC, TAG_PROPERTIES.INNER_HTML],
-        propsList
-    ),
-    styleTags: getTagsFromPropsList(
-        TAG_NAMES.STYLE,
-        [TAG_PROPERTIES.CSS_TEXT],
-        propsList
-    ),
-    title: getTitleFromPropsList(propsList),
-    titleAttributes: getAttributesFromPropsList(
-        ATTRIBUTE_NAMES.TITLE,
-        propsList
-    )
-});
+const reducePropsToAttributes = propsList => {
+    return {
+        htmlAttributes: getAttributesFromPropsList(
+            ATTRIBUTE_NAMES.HTML,
+            propsList
+        ),
+        bodyAttributes: getAttributesFromPropsList(
+            ATTRIBUTE_NAMES.BODY,
+            propsList
+        )
+    };
+};
+
+const reducePropsToHead = propsList => {
+    return {
+        baseTag: getBaseTagFromPropsList([TAG_PROPERTIES.HREF], propsList),
+        linkTags: getTagsFromPropsList(
+            TAG_NAMES.LINK,
+            [TAG_PROPERTIES.REL, TAG_PROPERTIES.HREF],
+            propsList
+        ),
+        metaTags: getTagsFromPropsList(
+            TAG_NAMES.META,
+            [
+                TAG_PROPERTIES.NAME,
+                TAG_PROPERTIES.CHARSET,
+                TAG_PROPERTIES.HTTPEQUIV,
+                TAG_PROPERTIES.PROPERTY,
+                TAG_PROPERTIES.ITEM_PROP
+            ],
+            propsList
+        ),
+        noscriptTags: getTagsFromPropsList(
+            TAG_NAMES.NOSCRIPT,
+            [TAG_PROPERTIES.INNER_HTML],
+            propsList
+        ),
+        scriptTags: getTagsFromPropsList(
+            TAG_NAMES.SCRIPT,
+            [TAG_PROPERTIES.SRC, TAG_PROPERTIES.INNER_HTML],
+            propsList
+        ),
+        styleTags: getTagsFromPropsList(
+            TAG_NAMES.STYLE,
+            [TAG_PROPERTIES.CSS_TEXT],
+            propsList
+        ),
+        title: getTitleFromPropsList(propsList),
+        titleAttributes: getAttributesFromPropsList(
+            ATTRIBUTE_NAMES.TITLE,
+            propsList
+        )
+    };
+};
+
+const reducePropsToOpts = propsList => {
+    return {
+        defer: getInnermostProperty(propsList, HELMET_PROPS.DEFER),
+        encode: getInnermostProperty(
+            propsList,
+            HELMET_PROPS.ENCODE_SPECIAL_CHARACTERS
+        ),
+        onChangeClientState: getOnChangeClientState(propsList)
+    };
+};
+
+const reducePropsToState = (propsList, tagTypes) => {
+    if (tagTypes === "attr") {
+        return reducePropsToAttributes(propsList);
+    }
+
+    if (tagTypes === "head") {
+        return reducePropsToHead(propsList);
+    }
+
+    return Object.assign(
+        {},
+        reducePropsToAttributes(propsList),
+        reducePropsToHead(propsList),
+        reducePropsToOpts(propsList)
+    );
+};
 
 const generateTagsAsReactComponent = (type, tags, options = {}) =>
     tags.map((tag, i) => {
