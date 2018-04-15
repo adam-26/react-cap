@@ -181,4 +181,9 @@ const mapAttributeStateOnServer = (
     )
 });
 
-export {mapStateOnServer, mapAttributeStateOnServer, mapComponentStateOnServer};
+export {
+    mapStateOnServer,
+    mapAttributeStateOnServer,
+    mapComponentStateOnServer,
+    generateElementAttributesAsString
+};
